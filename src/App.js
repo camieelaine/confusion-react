@@ -10,6 +10,7 @@ class App extends Component {
     return (
       //No longer using this class
       // <div className="App">
+      <div>
         <Navbar dark color="primary">
           <div className="container">
             <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
@@ -17,7 +18,7 @@ class App extends Component {
         </Navbar>
         <Menu />
       </div>
-    );
+    );     
   }
 }
 
