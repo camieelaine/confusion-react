@@ -4,6 +4,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Menu from './MenuComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 import DishDetail from './DishdetailComponent';
 import { DISHES } from '../shared/dishes';
 import { COMMENTS } from '../shared/comments';
@@ -38,6 +39,15 @@ class Main extends Component {
           />
       );
     }
+      const Contact = () => {
+        return(
+            <Contact 
+            // apply a filter
+            //take first element in the array [0] that featured is true
+                leader={this.state.leaders.filter((leader) => leader.featured)[0]}
+            />
+        );
+      }
     // use filter to extract dish and comments match parseInt base 10 integer
     const DishWithId = ({match}) => {
       return(
@@ -52,6 +62,7 @@ class Main extends Component {
             <Route path='/home' component={HomePage} />
             <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
             <Route path='/menu/:dishId' component={DishWithId} />
+            <Route exact path='/aboutus' component={() => <About leaders={this.state.leaders} />} />
             <Route exact path='/contactus' component={Contact} />} />
             {/* Default route */}
             <Redirect to="/home" />
