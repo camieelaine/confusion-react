@@ -39,15 +39,6 @@ class Main extends Component {
           />
       );
     }
-      // const Contact = () => {
-      //   return(
-      //       <Contact 
-      //       // apply a filter
-      //       //take first element in the array [0] that featured is true
-      //           leader={this.state.leaders.filter((leader) => leader.featured)[0]}
-      //       />
-      //   );
-      // }
     // use filter to extract dish and comments match parseInt base 10 integer
     const DishWithId = ({match}) => {
       return(
