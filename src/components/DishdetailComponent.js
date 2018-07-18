@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
         //render details when render dish is called by selectedDish
     function RenderDish({dish}) {
                 return(
-                    <div>
-                    {/* <div className="col-12 col-md-5 m-1"> */}
+                    
+                    <div className="col-12 col-md-5 m-1">
                     <Card>
                         <CardImg top src={dish.image} alt={dish.name} />
                         <CardBody>
@@ -23,11 +23,12 @@ import { Link } from 'react-router-dom';
     const required = (val) => val && val.length;
     const maxLength = (len) => (val) => !(val) || (val.length <= len);
     const minLength = (len) => (val) => val && (val.length >= len);
-    function RenderComments({comments}) {
+    
+    function RenderComments({comments, addComment, dishId}) {
             if (comments != null)
             return(
-                <div>
-                {/* <div className="col-12 col-md-5 m-1"> */}
+                
+                <div className="col-12 col-md-5 m-1">
                 <h4>Comments</h4>
                 <ul className="list-unstyled">
                 {comments.map((comment) => {
@@ -40,7 +41,7 @@ import { Link } from 'react-router-dom';
                     );
                 })}
                 </ul>
-                <CommentForm />
+                <CommentForm dishId={dishId} addComment={addComment} />
             </div>
             );
             else
@@ -68,8 +69,11 @@ import { Link } from 'react-router-dom';
             
           }
           handleSubmit(values) {
-            console.log('Current State is: ' + JSON.stringify(values));
-            alert('Current State is: ' + JSON.stringify(values));
+            // this.toggleModal();
+              //commented outfor redux actions exercise
+            // console.log('Current State is: ' + JSON.stringify(values));
+            // alert('Current State is: ' + JSON.stringify(values));
+            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
             // event.preventDefault();
         }
         validate(author) {
@@ -127,10 +131,10 @@ import { Link } from 'react-router-dom';
                                
                             </Row>
                             <Row className="form-group col-md-12">
-                                <Label htmlFor="message">Comment</Label>
+                                <Label htmlFor="comment">Comment</Label>
     
                              
-                                    <Control.textarea model=".message" id="message" name="message"
+                                    <Control.textarea model=".comment" id="comment" name="comment"
                                         rows="6"
                                         className="form-control" />
                              
@@ -165,12 +169,12 @@ import { Link } from 'react-router-dom';
                     </div>                
                 </div>
                 <div className="row">
-                    <div className="col-12 col-md-5 m-1">
+                    
                         <RenderDish dish={props.dish} />
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments={props.comments} />
-                    </div>
+                        <RenderComments comments={props.comments}
+                         addComment={props.addComment}
+                         dishId={props.dish.id} />
+                    
                 </div>
                 </div>
             );
