@@ -14,6 +14,7 @@ import { baseUrl } from '../shared/baseUrl';
 //     }
 // });
 
+
 export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
     payload: comment
@@ -53,20 +54,7 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
     .then(response => dispatch(addComment(response)))
     .catch(error =>  { console.log('post comments', error.message); alert('Your comment could not be posted\nError: '+error.message); });
 };
-// thunk
-// export const fetchDishes = () => (dispatch) => {
 
-//     dispatch(dishesLoading(true));
-
-//     return fetch(baseUrl + 'dishes')
-//         .then(response => response.json())
-//         //pass dishes into the addDishes method
-//         .then(dishes => dispatch(addDishes(dishes)));
-//     // no longer need this delay
-//     // setTimeout(() => {
-//     //     dispatch(addDishes(DISHES));
-//     // }, 2000);
-// }
 export const fetchDishes = () => (dispatch) => {
 
     dispatch(dishesLoading(true));
