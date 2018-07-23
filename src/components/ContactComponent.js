@@ -47,10 +47,13 @@ class Contact extends Component {
     // }
       //handle the submission
     handleSubmit(values) {
+       this.props.postFeedback(this.props.id, values.firstname, values.lastname, values.telnum,
+        values.email, values.agree, values.contactType, values.message);
+      
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
         this.props.resetFeedbackForm();
-        // event.preventDefault();
+        
     }
 
     validate(firstname, lastname, telnum, email) {
