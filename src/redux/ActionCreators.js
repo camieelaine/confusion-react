@@ -207,46 +207,62 @@ export const addLeaders = (leaders) => ({
     payload: leaders
 });
 
-export const addFeedback = (feedback) => ({
-    type: ActionTypes.ADD_FEEDBACK,
-    payload: feedback
-});
-export const postFeedback = (firstname, lastname, telnum, email, agree, contactType, 
-    message, id) => (dispatch) => {
-
-    const newFeedback = {
-        firstname: firstname,
-        lastname: lastname,
-        telnum: telnum, 
-        email: email, 
-        agree: agree,
-        contactType: contactType, 
-        message: message, 
-        id: id
-    };
-    newFeedback.date = new Date().toISOString();
-    
+export const postFeedback = (feedback) => (dispatch) => {
     return fetch(baseUrl + 'feedback', {
-        method: "POST",
-        body: JSON.stringify(newFeedback),
+        method:'POST',
         headers: {
-          "Content-Type": "application/json"
+            'Content-Type':'application/json'
         },
-        credentials: "same-origin"
+        body:JSON.stringify(feedback)
     })
-    .then(response => {
-        if (response.ok) {
-          return response;
-        } else {
-          var error = new Error('Error ' + response.status + ': ' + response.statusText);
-          error.response = response;
-          throw error;
-        }
-      },
-      error => {
-            throw error;
-      })
-    .then(response => response.json())
-    .then(response => dispatch(addFeedback(response)))
-    .catch(error =>  { console.log('post feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
-};
+        .then(response => {
+            if(response.ok) {
+                return response;
+            }else {
+                var err = new Error('Status :' + response.status + ': ' + response.statusText) ;
+                throw err;
+            }
+        }, error => {throw Error(error.message)})
+        .then(response => response.json())
+        .then(response => alert('Thanks for your feedback'+ JSON.stringify(response)))
+        .catch(error => console.log('ERROR POST FEEDBACK :', error.message))
+}
+// export const postFeedback = (firstname, lastname, telnum, email, agree, contactType, 
+//     message, id) => (dispatch) => {
+
+//     const newFeedback = {
+//         firstname: firstname,
+//         lastname: lastname,
+//         telnum: telnum, 
+//         email: email, 
+//         agree: agree,
+//         contactType: contactType, 
+//         message: message, 
+//         id: id
+//     };
+//     newFeedback.date = new Date().toISOString();
+    
+//     return fetch(baseUrl + 'feedback', {
+//         method: "POST",
+//         body: JSON.stringify(newFeedback),
+//         headers: {
+//           "Content-Type": "application/json"
+//         },
+//         credentials: "same-origin"
+//     })
+//     .then(response => {
+//         if (response.ok) {
+//           return response;
+//         } else {
+//           var error = new Error('Error ' + response.status + ': ' + response.statusText);
+//           error.response = response;
+//           throw error;
+//         }
+//       },
+//       error => {
+//             throw error;
+//       })
+//     .then(response => response.json())
+//     .then(response => dispatch(addFeedback(response)))
+//     .catch(error =>  { console.log('post feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
+// };
